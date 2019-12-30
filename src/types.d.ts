@@ -1,9 +1,4 @@
 interface CreepMemory {
-  role: Role;
-}
-
-declare enum Role {
-  Harvester,
-  Builder,
-  Upgrader
+  role: number;
+  state?: number;
 }

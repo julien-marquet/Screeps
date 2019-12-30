@@ -10,15 +10,14 @@ export const loop = ErrorMapper.wrapLoop(() => {
   console.log(`Current game tick is ${Game.time}`);
 
   for (let room of Object.values(Game.rooms)) {
+    // retrieve room informations
     const roomInfos = observeRoom(room);
-
-    console.log(JSON.stringify(roomInfos));
 
     // control creeps spawn
     controlSpawn(room, roomInfos);
 
     // role dispatch
-    dispatchRoles(room);
+    dispatchRoles(room, roomInfos);
   }
 
   // Automatically delete memory of missing creeps
