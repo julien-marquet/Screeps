@@ -4,10 +4,10 @@ export interface RoomInfos {
   ownedCreeps: Creep[];
 }
 
-export type RoleDistribution = { [roleIndex: string]: number };
+export type RoleDistribution = { [roleIndex: number]: number };
 
 export enum Role {
-  Harvester = "HARVESTER",
-  Builder = "BUILDER",
-  Upgrader = "UPGRADER"
+  Harvester,
+  Builder,
+  Upgrader
 }

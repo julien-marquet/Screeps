@@ -4,7 +4,7 @@ import { getValuesInEnum } from "./utils/enums";
 export const ROLE_DISTRIBUTION_TEMPLATE = ((): RoleDistribution => {
   const roles = getValuesInEnum<typeof Role>(Role);
   return roles.reduce<RoleDistribution>((template, role) => {
-    template[role] = 0;
+    template[parseInt(role)] = 0;
     return template;
   }, {});
 })();

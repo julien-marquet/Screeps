@@ -12,6 +12,8 @@ export const loop = ErrorMapper.wrapLoop(() => {
   for (let room of Object.values(Game.rooms)) {
     const roomInfos = observeRoom(room);
 
+    console.log(JSON.stringify(roomInfos));
+
     // control creeps spawn
     controlSpawn(room, roomInfos);
 

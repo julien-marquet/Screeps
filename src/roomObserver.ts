@@ -6,12 +6,9 @@ function getSpawnOrder(room: Room): Role[] {
 }
 
 function getRoleDistribution(ownedCreeps: Creep[]): RoleDistribution {
-  const roleDistribution: RoleDistribution = ROLE_DISTRIBUTION_TEMPLATE;
-  console.log(JSON.stringify(roleDistribution));
-  for (let creep of ownedCreeps) {
-    console.log(creep.memory);
-  }
-  return {};
+  const roleDistribution: RoleDistribution = { ...ROLE_DISTRIBUTION_TEMPLATE };
+  for (let creep of ownedCreeps) roleDistribution[creep.memory.role]++;
+  return roleDistribution;
 }
 
 function observeRoom(room: Room): RoomInfos {
