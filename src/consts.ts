@@ -18,7 +18,7 @@ function getBodyInfos(parts: BodyPartConstant[]): BodyInfos {
 
 export const ROLES_PROPERTIES: RolesInfos = {
   [Role.Harvester]: {
-    body: getBodyInfos([WORK, CARRY, CARRY, MOVE, MOVE]),
+    body: getBodyInfos([WORK, WORK, CARRY, MOVE]),
     displayName: "Harvester",
     displayIcon: "⛏️",
     defaultMemory: {
@@ -27,7 +27,7 @@ export const ROLES_PROPERTIES: RolesInfos = {
     }
   },
   [Role.Upgrader]: {
-    body: getBodyInfos([WORK, CARRY, MOVE]),
+    body: getBodyInfos([WORK, WORK, CARRY, MOVE]),
     displayName: "Upgrader",
     displayIcon: "⚡",
     defaultMemory: {
@@ -35,7 +35,7 @@ export const ROLES_PROPERTIES: RolesInfos = {
     }
   },
   [Role.Builder]: {
-    body: getBodyInfos([WORK, CARRY, MOVE]),
+    body: getBodyInfos([WORK, WORK, CARRY, MOVE]),
     displayName: "Builder",
     displayIcon: "🚧",
     defaultMemory: {
@@ -43,5 +43,3 @@ export const ROLES_PROPERTIES: RolesInfos = {
     }
   }
 };
-
-export const BODY_PART_COST = 50;

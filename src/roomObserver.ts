@@ -2,7 +2,7 @@ import { ROLES_DISTRIBUTION_TEMPLATE } from "./consts";
 import { Role, RoomInfos, RolesDistribution } from "./types/types";
 
 function getSpawnOrder(room: Room): Role[] {
-  return [Role.Harvester, Role.Upgrader, Role.Builder];
+  return [Role.Harvester, Role.Harvester, Role.Upgrader];
 }
 
 function getRolesDistribution(ownedCreeps: Creep[]): RolesDistribution {
@@ -17,12 +17,15 @@ function getGoalRolesDistribution(spawnOrder: Role[]): RolesDistribution {
   return rolesDistribution;
 }
 
+function getBuildOrders() {}
+
 function observeRoom(room: Room): RoomInfos {
   const ownedCreeps = room.find(FIND_MY_CREEPS);
   const rolesDistribution = getRolesDistribution(ownedCreeps);
   const spawnOrder = getSpawnOrder(room);
   const goalRolesDistribution = getGoalRolesDistribution(spawnOrder);
   const spawns = room.find(FIND_MY_SPAWNS);
+  const buildOrders = getBuildOrders();
 
   return {
     ownedCreeps,

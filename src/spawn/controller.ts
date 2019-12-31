@@ -1,8 +1,8 @@
 import { RoomInfos, Role } from "../types/types";
 import { ROLES_PROPERTIES } from "consts";
 
-function generateCreepName(role: Role, spawn: StructureSpawn, room: Room, num: number) {
-  return `${ROLES_PROPERTIES[role].displayName}-${spawn.name}-${room.name}-${num + 1}`;
+function generateCreepName(role: Role, spawn: StructureSpawn, room: Room) {
+  return `${ROLES_PROPERTIES[role].displayName}-${spawn.name}-${room.name}-${Date.now()}`;
 }
 
 function printSpawningVisuals(visual: RoomVisual, spawning: Spawning, pos: RoomPosition): void {
@@ -33,7 +33,7 @@ function controlSpawn(room: Room, roomInfos: RoomInfos) {
         if (spawn.energy >= ROLES_PROPERTIES[role].body.energyCost) {
           const spawnStatus = spawn.spawnCreep(
             ROLES_PROPERTIES[role].body.parts,
-            generateCreepName(role, spawn, room, roomInfos.rolesDistribution[role]),
+            generateCreepName(role, spawn, room),
             getSpawnOptions(role)
           );
           if (spawnStatus !== 0) console.log("Spawning failed :", spawnStatus);

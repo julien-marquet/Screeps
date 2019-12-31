@@ -19,6 +19,13 @@ export namespace Harvester {
   }
 }
 
+export namespace Upgrader {
+  export enum State {
+    Harvesting,
+    Emptying
+  }
+}
+
 export interface RolesProperties<T> {
   [roleIndex: number]: T;
 }
