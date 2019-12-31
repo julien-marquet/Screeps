@@ -1,5 +1,5 @@
 import { ROLES_DISTRIBUTION_TEMPLATE } from "./consts";
-import { Role, RoomInfos, RolesDistribution } from "./types/types";
+import { Role, RolesDistribution, RoomInfos } from "./types/types";
 
 function getSpawnOrder(room: Room): Role[] {
   return [Role.Harvester, Role.Harvester, Role.Upgrader];
@@ -7,13 +7,17 @@ function getSpawnOrder(room: Room): Role[] {
 
 function getRolesDistribution(ownedCreeps: Creep[]): RolesDistribution {
   const rolesDistribution: RolesDistribution = { ...ROLES_DISTRIBUTION_TEMPLATE };
-  for (let creep of ownedCreeps) rolesDistribution[creep.memory.role]++;
+  for (const creep of ownedCreeps) {
+    rolesDistribution[creep.memory.role]++;
+  }
   return rolesDistribution;
 }
 
 function getGoalRolesDistribution(spawnOrder: Role[]): RolesDistribution {
   const rolesDistribution: RolesDistribution = { ...ROLES_DISTRIBUTION_TEMPLATE };
-  for (let role of spawnOrder) rolesDistribution[role]++;
+  for (const role of spawnOrder) {
+    rolesDistribution[role]++;
+  }
   return rolesDistribution;
 }
 
@@ -28,10 +32,10 @@ function observeRoom(room: Room): RoomInfos {
   const buildOrders = getBuildOrders();
 
   return {
-    ownedCreeps,
-    spawnOrder,
     goalRolesDistribution,
+    ownedCreeps,
     rolesDistribution,
+    spawnOrder,
     spawns
   };
 }

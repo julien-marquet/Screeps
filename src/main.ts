@@ -1,7 +1,7 @@
 import { ErrorMapper } from "utils/ErrorMapper";
-import controlSpawn from "./spawn/controller";
 import dispatchRoles from "./roles/dispatcher";
 import observeRoom from "./roomObserver";
+import controlSpawn from "./spawn/controller";
 
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
@@ -9,7 +9,7 @@ import observeRoom from "./roomObserver";
 export const loop = ErrorMapper.wrapLoop(() => {
   console.log(`Current game tick is ${Game.time}`);
 
-  for (let room of Object.values(Game.rooms)) {
+  for (const room of Object.values(Game.rooms)) {
     // retrieve room informations
     const roomInfos = observeRoom(room);
 

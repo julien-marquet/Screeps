@@ -12,18 +12,14 @@ export enum Role {
   Upgrader
 }
 
-export namespace Harvester {
-  export enum State {
-    Harvesting,
-    Emptying
-  }
+export enum HarvesterState {
+  Harvesting,
+  Emptying
 }
 
-export namespace Upgrader {
-  export enum State {
-    Harvesting,
-    Emptying
-  }
+export enum UpgraderState {
+  Harvesting,
+  Emptying
 }
 
 export interface RolesProperties<T> {
@@ -50,7 +46,7 @@ export type CreepMemory = HarvesterMemory | UpgraderMemory | BuilderMemory;
 
 export interface HarvesterMemory {
   role: Role.Harvester;
-  state: Harvester.State;
+  state: HarvesterState;
 }
 
 export interface UpgraderMemory {

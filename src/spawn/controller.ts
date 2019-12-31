@@ -1,5 +1,5 @@
-import { RoomInfos, Role } from "../types/types";
 import { ROLES_PROPERTIES } from "consts";
+import { Role, RoomInfos } from "../types/types";
 
 function generateCreepName(role: Role, spawn: StructureSpawn, room: Room) {
   return `${ROLES_PROPERTIES[role].displayName}-${spawn.name}-${room.name}-${Date.now()}`;
@@ -8,8 +8,8 @@ function generateCreepName(role: Role, spawn: StructureSpawn, room: Room) {
 function printSpawningVisuals(visual: RoomVisual, spawning: Spawning, pos: RoomPosition): void {
   const spawningCreepRole = Game.creeps[spawning.name].memory.role;
   visual.text(`${ROLES_PROPERTIES[spawningCreepRole].displayIcon} ${spawning.remainingTime}s`, pos.x + 1, pos.y, {
-    font: 0.4,
-    align: "left"
+    align: "left",
+    font: 0.4
   });
 }
 
@@ -22,21 +22,25 @@ function getSpawnOptions(role: Role): SpawnOptions {
 function controlSpawn(room: Room, roomInfos: RoomInfos) {
   const rolesToSpawn = { ...roomInfos.rolesDistribution };
   const freeSpawns = roomInfos.spawns.filter(spawn => {
-    if (spawn.spawning) printSpawningVisuals(room.visual, spawn.spawning, spawn.pos);
+    if (spawn.spawning) {
+      printSpawningVisuals(room.visual, spawn.spawning, spawn.pos);
+    }
     return spawn.isActive && !spawn.spawning;
   });
 
-  for (let role of roomInfos.spawnOrder) {
+  for (const role of roomInfos.spawnOrder) {
     rolesToSpawn[role]--;
     if (rolesToSpawn[role] < 0) {
-      for (let spawn of freeSpawns) {
+      for (const spawn of freeSpawns) {
         if (spawn.energy >= ROLES_PROPERTIES[role].body.energyCost) {
           const spawnStatus = spawn.spawnCreep(
             ROLES_PROPERTIES[role].body.parts,
             generateCreepName(role, spawn, room),
             getSpawnOptions(role)
           );
-          if (spawnStatus !== 0) console.log("Spawning failed :", spawnStatus);
+          if (spawnStatus !== 0) {
+            console.log("Spawning failed :", spawnStatus);
+          }
           return;
         }
       }
