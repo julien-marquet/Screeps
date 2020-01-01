@@ -2,7 +2,7 @@ import { ROLES_DISTRIBUTION_TEMPLATE } from "./consts";
 import { Role, RolesDistribution, RoomInfos } from "./types/types";
 
 function getSpawnOrder(room: Room): Role[] {
-  return [Role.Harvester, Role.Harvester, Role.Upgrader];
+  return [Role.Harvester, Role.Upgrader, Role.Builder];
 }
 
 function getRolesDistribution(ownedCreeps: Creep[]): RolesDistribution {

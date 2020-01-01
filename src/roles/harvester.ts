@@ -1,26 +1,34 @@
 import { HarvesterState } from "types/types";
+import { findNearestStructure, findUnfilledStructures } from "../finders/structures";
 import harvest from "./actions/harvest";
 import transferEnergy, { transferEnergyToTarget } from "./actions/transferEnergy";
 
 const harvester = {
-  run: (room: Room, creep: Creep) => {
+  run: (room: Room, creep: Creep): boolean => {
     if (creep.carry.getFreeCapacity() === 0) {
-      creep.memory.state = HarvesterState.Emptying;
+      creep.memory.state = HarvesterState.Tranfering;
     }
     if (creep.carry.getUsedCapacity() === 0) {
       creep.memory.state = HarvesterState.Harvesting;
     }
 
     if (creep.memory.state === HarvesterState.Harvesting) {
-      harvest(room, creep);
+      return harvest(room, creep);
     } else {
-      const notFullSpawns = room.find(FIND_MY_SPAWNS, { filter: spawn => spawn.energyCapacity - spawn.energy > 0 });
-      if (notFullSpawns.length > 0) {
-        const nearestSpawn = _.sortBy(notFullSpawns, s => creep.pos.getRangeTo(s))[0];
-        transferEnergyToTarget(creep, nearestSpawn);
-      } else {
-        transferEnergy(room, creep, STRUCTURE_CONTROLLER);
+      // TODO STORE UNFILLED STRUCTURE AT THE BEGINNING
+      const nearestUnfilledSpawn = findNearestStructure(creep, findUnfilledStructures(room, STRUCTURE_SPAWN));
+      if (nearestUnfilledSpawn) {
+        return transferEnergyToTarget(creep, nearestUnfilledSpawn);
       }
+      const nearestUnfilledExtension = findNearestStructure(creep, findUnfilledStructures(room, STRUCTURE_EXTENSION));
+      if (nearestUnfilledExtension) {
+        return transferEnergyToTarget(creep, nearestUnfilledExtension);
+      }
+      const nearestUnfilledContainer = findNearestStructure(creep, findUnfilledStructures(room, STRUCTURE_CONTAINER));
+      if (nearestUnfilledContainer) {
+        return transferEnergyToTarget(creep, nearestUnfilledContainer);
+      }
+      return creep.drop(RESOURCE_ENERGY) === 0;
     }
   }
 };

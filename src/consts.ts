@@ -1,4 +1,4 @@
-import { BodyInfos, HarvesterState, Role, RolesDistribution, RolesInfos } from "./types/types";
+import { BodyInfos, BuilderState, HarvesterState, Role, RolesDistribution, RolesInfos, UpgraderState } from "./types/types";
 import { getValuesInEnum } from "./utils/enums";
 
 export const ROLES_DISTRIBUTION_TEMPLATE = ((): RolesDistribution => {
@@ -29,15 +29,17 @@ export const ROLES_PROPERTIES: RolesInfos = {
   [Role.Upgrader]: {
     body: getBodyInfos([WORK, WORK, CARRY, MOVE]),
     defaultMemory: {
-      role: Role.Upgrader
+      role: Role.Upgrader,
+      state: UpgraderState.RetrievingEnergy
     },
     displayIcon: "⚡",
     displayName: "Upgrader"
   },
   [Role.Builder]: {
-    body: getBodyInfos([WORK, WORK, CARRY, MOVE]),
+    body: getBodyInfos([WORK, CARRY, CARRY, MOVE, MOVE]),
     defaultMemory: {
-      role: Role.Builder
+      role: Role.Builder,
+      state: BuilderState.RetrievingEnergy
     },
     displayIcon: "🚧",
     displayName: "Builder"

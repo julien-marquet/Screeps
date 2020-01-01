@@ -11,6 +11,7 @@ export function transferEnergyToTarget(creep: Creep, target: Structure) {
   if (creep.transfer(target, RESOURCE_ENERGY) !== 0) {
     creep.moveTo(target.pos.x, target.pos.y);
   }
+  return true;
 }
 
 function transferToController(room: Room, creep: Creep): boolean {

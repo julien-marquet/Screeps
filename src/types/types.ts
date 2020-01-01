@@ -14,12 +14,17 @@ export enum Role {
 
 export enum HarvesterState {
   Harvesting,
-  Emptying
+  Tranfering
 }
 
 export enum UpgraderState {
-  Harvesting,
-  Emptying
+  RetrievingEnergy,
+  Upgrading
+}
+
+export enum BuilderState {
+  RetrievingEnergy,
+  Building
 }
 
 export interface RolesProperties<T> {
@@ -51,8 +56,10 @@ export interface HarvesterMemory {
 
 export interface UpgraderMemory {
   role: Role.Upgrader;
+  state: UpgraderState;
 }
 
 export interface BuilderMemory {
   role: Role.Builder;
+  state: BuilderState;
 }

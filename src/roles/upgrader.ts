@@ -1,19 +1,19 @@
 import { UpgraderState } from "../types/types";
-import harvest from "./actions/harvest";
+import retrieveEnergy from "./actions/retrieveEnergy";
 import transfer from "./actions/transferEnergy";
 
 const upgraderRole = {
-  run: (room: Room, creep: Creep) => {
+  run: (room: Room, creep: Creep): boolean => {
     if (creep.carry.getFreeCapacity() === 0) {
-      creep.memory.state = UpgraderState.Emptying;
+      creep.memory.state = UpgraderState.Upgrading;
     }
     if (creep.carry.getUsedCapacity() === 0) {
-      creep.memory.state = UpgraderState.Harvesting;
+      creep.memory.state = UpgraderState.RetrievingEnergy;
     }
-    if (creep.memory.state === UpgraderState.Harvesting) {
-      harvest(room, creep);
+    if (creep.memory.state === UpgraderState.RetrievingEnergy) {
+      return retrieveEnergy(room, creep);
     } else {
-      transfer(room, creep, STRUCTURE_CONTROLLER);
+      return transfer(room, creep, STRUCTURE_CONTROLLER);
     }
   }
 };
